@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.component.gson.GsonDataFormat;
 import org.apache.camel.component.rabbitmq.RabbitMQConstants;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.processor.idempotent.MemoryIdempotentRepository;
@@ -27,6 +28,8 @@ public class PlayRoute extends FatJarRouter {
 
     @Override
     public void configure() throws Exception {
+        GsonDataFormat gf = new GsonDataFormat(Track.class);
+        gf.setDateFormatPattern("yyyy-MM-dd'T'HH:mm:ssZ");
         //@formatter:off
         from("timer://pollingTimer?fixedRate=true&period=3000")
             .split().method(PlayRoute.class, "getChannels").parallelProcessing()
@@ -46,8 +49,7 @@ public class PlayRoute extends FatJarRouter {
         
         from("direct:process")
             .enrich("direct:lastfmEnricher", new LastFmAggregationStrategy())
-            .marshal()
-            .json(JsonLibrary.Gson, Track.class)
+            .marshal(gf)
             .setHeader(RabbitMQConstants.ROUTING_KEY, simple("tracks.${in.header.channel}"))
             .to("rabbitmq://" + rabbitMQHost + RABBIT_EXCHANGE_NAME + "?exchangeType=topic&autoDelete=false");
         

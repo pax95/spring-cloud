@@ -1,4 +1,7 @@
-
+endpoints:
+  restart:
+    enabled: true
+    
 eureka:
   instance:
     prefer-ip-address: true
