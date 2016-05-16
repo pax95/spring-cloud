@@ -2,3 +2,6 @@
 /.settings/
 /.classpath
 /.project
+/app/
+/node_modules/
+/.idea/

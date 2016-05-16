@@ -1,9 +1,9 @@
 server:
-  port: 9002
-  
+  port: 9000
+ 
 spring:
   cloud:
     config:
       uri: http://localhost:8888
   application:
-    name: playliste-service
+    name: play-client

@@ -8,12 +8,12 @@
 	<parent>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-parent</artifactId>
-        <version>Brixton.M3</version>
+        <version>Brixton.RELEASE</version>
         <relativePath/>
 	</parent>
 	<properties>
     	<java.version>1.8</java.version>
-    	<camel.version>2.16.1</camel.version>
+    	<camel.version>2.17.0</camel.version>
 	</properties>
     <dependencies>
         <dependency>
@@ -35,8 +35,8 @@
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-parent</artifactId>
-                <version>Brixton.M3</version>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Brixton.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

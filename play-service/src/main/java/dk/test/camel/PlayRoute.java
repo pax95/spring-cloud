@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.gson.GsonDataFormat;
-import org.apache.camel.component.rabbitmq.RabbitMQConstants;
+import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.spring.boot.FatJarRouter;
@@ -18,13 +18,12 @@ import org.springframework.stereotype.Component;
 @Configuration
 @EnableAutoConfiguration
 public class PlayRoute extends FatJarRouter {
-    private final static String RABBIT_EXCHANGE_NAME = "/track-exchange";
     private final static List<String> CHANNELS = Arrays.asList("P3", "AR4", "P8J", "DRM", "P6B", "P7M", "RAM", "P5D", "KH4");
     @Value("${lastFmApiKey}")
     private String lastFmApiKey;
 
-    @Value("${rabbitMQHost}")
-    private String rabbitMQHost;
+    @Value("${kafkaHost}")
+    private String kafkaHost;
 
     @Override
     public void configure() throws Exception {
@@ -35,8 +34,8 @@ public class PlayRoute extends FatJarRouter {
             .split().method(PlayRoute.class, "getChannels").parallelProcessing()
                 .setHeader(Exchange.HTTP_METHOD, simple("GET"))
                 .setHeader(Exchange.HTTP_URI, simple("http://www.dr.dk/playlister/feeds/nowNext/nowPrev.drxml?items=0&cid=${body}"))
-                .to("http4://dummy").filter()
-                .simple("${body} != null")
+                .to("http4://dummy")
+                .filter().simple("${body} != null")
                 .unmarshal()
                 .json(JsonLibrary.Gson)
                 .filter(simple("${body[now][status]} == 'music'"))
@@ -50,8 +49,9 @@ public class PlayRoute extends FatJarRouter {
         from("direct:process")
             .enrich("direct:lastfmEnricher", new LastFmAggregationStrategy())
             .marshal(gf)
-            .setHeader(RabbitMQConstants.ROUTING_KEY, simple("tracks.${in.header.channel}"))
-            .to("rabbitmq://" + rabbitMQHost + RABBIT_EXCHANGE_NAME + "?exchangeType=topic&autoDelete=false");
+            .convertBodyTo(String.class)
+            .setHeader(KafkaConstants.KEY).simple("${header.channel}")
+            .to("kafka:" + kafkaHost+ "?topic=playlist&groupId=playgroup");
         
         from("direct:lastfmEnricher")
             .onException(Exception.class)
@@ -65,7 +65,7 @@ public class PlayRoute extends FatJarRouter {
            .to("http4://ws.audioscrobbler.com/2.0/?throwExceptionOnFailure=false");
         
 
-        from("rabbitmq://" + rabbitMQHost + RABBIT_EXCHANGE_NAME + "?exchangeType=topic&routingKey=tracks.*&durable=true&queue=tracks&autoDelete=false")
+        from("kafka:" + kafkaHost+"?topic=playlist&groupId=playgroup")
             .log("got track :${body}");
         //@formatter:on
     }

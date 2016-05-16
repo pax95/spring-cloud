@@ -1,0 +1,39 @@
+{
+  "name": "spring-boot-angular2",
+  "description": "Spring Boot with Angular2, Typescript, Sass, and a Gulp Build",
+  "private": true,
+  "version": "0.0.1-SNAPSHOT",
+  "license": "MIT",
+  "scripts": {
+    "clean": "gulp clean",
+    "compile": "gulp compile",
+    "build": "gulp build",
+    "server": "concurrent --kill-others \"gulp watch\" \"lite-server\"",
+    "postinstall": "typings install"
+  },
+  "dependencies": {
+    "angular2": "2.0.0-beta.15",
+    "bootstrap": "^4.0.0-alpha.2",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.3",
+    "systemjs": "0.19.24",
+    "zone.js": "~0.6.11"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "~0.16.2",
+    "del": "^2.2.0",
+    "es6-promise": "3.0.2",
+    "es6-shim": "0.35.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-typescript": "^2.13.4",
+    "reflect-metadata": "0.1.2",
+    "source-map-loader": "^0.1.5",
+    "typescript": "~1.8.9",
+    "typings": "^0.7.9",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0",
+    "webpack-merge": "^0.8.4"
+  }
+}

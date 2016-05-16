@@ -59,7 +59,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-rabbitmq</artifactId>
+			<artifactId>camel-kafka</artifactId>
 			<version>${camel.version}</version>
 			<exclusions>
 				<exclusion>
