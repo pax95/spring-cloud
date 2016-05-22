@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: playlist
+          group: somegroup
+          content-type: text/plain
+          consumer:
+            header-mode: raw
+            resetOffset: true
+            startOffset: latest
