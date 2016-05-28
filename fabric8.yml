@@ -1,5 +1,4 @@
 ---
-pipeline: "workflows/maven/BuildImage/Jenkinsfile"
 buildName: "spring-cloud"
 codeReview: false
 links:
