@@ -1,0 +1,11 @@
+---
+pipeline: "workflows/maven/BuildImage/Jenkinsfile"
+buildName: "spring-cloud"
+codeReview: false
+links:
+  Current: "http://172.30.74.185:80/kubernetes/pods?namespace=default"
+  Git: "https://github.com/pax95/spring-cloud.git"
+  Job: "http://jenkins.vagrant.f8/job/spring-cloud"
+environments:
+  Current: "default"
+useLocalFlow: true
