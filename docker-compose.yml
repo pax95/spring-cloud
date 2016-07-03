@@ -1,0 +1,41 @@
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    links:
+      - zookeeper:zk
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  config:
+    build: config-server
+    ports:
+      - 8888:8888
+  play-client:
+    build: play-client
+    ports:
+      - 9000:9000
+    links:
+      - zookeeper:zk
+    depends_on:
+      - config
+      - kafka
+    environment:
+      - "TZ=Europe/Copenhagen"
+  play-service:
+    build: play-service
+    links:
+      - zookeeper:zk
+    depends_on:
+      - config
+      - kafka
+    environment:
+      - "TZ=Europe/Copenhagen"

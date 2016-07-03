@@ -4,8 +4,6 @@ import {Track} from "../interfaces";
 import {WebSocketService} from "./WebSocketService";
 import {Component} from "angular2/core";
 
-const WSSERVICE_URL = "ws://localhost:9000/tracks";
-
 @Component({
     providers: [WebSocketService]
 })
@@ -15,8 +13,9 @@ export class PlaylistService {
     public tracks : Subject<Track>
 
     constructor (public wsService: WebSocketService) {
+    	var HOST = location.origin.replace(/^http/, 'ws') + "/tracks";
         this.tracks = <Subject<Track>>wsService
-            .connect(WSSERVICE_URL)
+            .connect(HOST)
             .map((response: MessageEvent): Track => {
                 let data = JSON.parse(response.data);
                 return {

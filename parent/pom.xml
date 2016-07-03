@@ -12,6 +12,7 @@
         <frontend-maven-plugin.version>1.0</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v5.3.0</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>3.7.5</frontend-maven-plugin.npmVersion>
+        <docker-maven-plugin-version>0.15.7</docker-maven-plugin-version>
         <maven.version>3.3.3</maven.version>
         <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
         <spring-cloud-starter-parent.version>Brixton.SR1</spring-cloud-starter-parent.version>
@@ -168,7 +169,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

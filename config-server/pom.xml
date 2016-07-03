@@ -35,6 +35,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin-version}</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>config-server</alias>
+                            <name>pax95/${project.artifactId}:${project.version}</name>
+                            <build>
+                                <from>java:8-jre</from>
+                                <maintainer>preben.asmussen@gmail.com</maintainer>
+                                <assembly>
+                                    <basedir>/app</basedir>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <env>
+                                    <JAVA_APP_JAR>${project.build.finalName}.jar</JAVA_APP_JAR>
+                                </env>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

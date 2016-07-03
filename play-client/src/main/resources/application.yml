@@ -10,3 +10,9 @@ spring:
             header-mode: raw
             resetOffset: true
             startOffset: latest
+      kafka:
+        binder:
+          zk-nodes:
+            - 192.168.99.100
+          brokers:
+            - 192.168.99.100

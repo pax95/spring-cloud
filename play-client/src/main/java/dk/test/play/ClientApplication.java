@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -24,9 +23,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class ClientApplication {
 
     private static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-
-    @Value("${kafkaHost}")
-    private String kafkaHost;
 
     public static void main(String[] args) {
         SpringApplication.run(ClientApplication.class, args);
