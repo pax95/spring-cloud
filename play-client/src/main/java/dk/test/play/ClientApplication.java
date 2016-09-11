@@ -6,10 +6,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -19,7 +18,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @SpringBootApplication
-@EnableBinding(Sink.class)
+@EnableJms
 public class ClientApplication {
 
     private static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
@@ -51,7 +50,7 @@ public class ClientApplication {
         }
     }
 
-    @StreamListener(Sink.INPUT)
+    @JmsListener(destination = "playlist")
     public void handleKafkaMessage(String payload) throws IOException {
         for (WebSocketSession session : sessions) {
             session.sendMessage(new TextMessage(payload));

@@ -1,41 +1,41 @@
 version: '2'
 services:
-  zookeeper:
-    image: wurstmeister/zookeeper
+  activemq:
+    image: rmohr/activemq
     ports:
-      - "2181:2181"
-  kafka:
-    image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
-    links:
-      - zookeeper:zk
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    - "61616:61616"
+    - "8161:8161"
+    hostname: activemq
+    expose:
+    - "61616"
+    - "8161"
+#Config server
   config:
-    build: config-server
+    image: test/config-server
     ports:
       - 8888:8888
+#Play-Client
   play-client:
-    build: play-client
+    image: test/play-client
     ports:
       - 9000:9000
     links:
-      - zookeeper:zk
+      - activemq
+      - config
     depends_on:
       - config
-      - kafka
+      - activemq
     environment:
       - "TZ=Europe/Copenhagen"
+#Play Service
   play-service:
-    build: play-service
+    image: test/play-service
     links:
-      - zookeeper:zk
+      - activemq
+      - config
+    restart: always
     depends_on:
       - config
-      - kafka
+      - activemq
     environment:
       - "TZ=Europe/Copenhagen"

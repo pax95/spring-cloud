@@ -1,18 +1,5 @@
 spring:
-  cloud:
-    stream:
-      bindings:
-        input:
-          destination: playlist
-          group: somegroup
-          content-type: text/plain
-          consumer:
-            header-mode: raw
-            resetOffset: true
-            startOffset: latest
-      kafka:
-        binder:
-          zk-nodes:
-            - 192.168.99.100
-          brokers:
-            - 192.168.99.100
+  activemq:
+    broker-url: tcp://activemq:61616
+  jms:
+    pub-sub-domain: true

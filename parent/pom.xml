@@ -12,7 +12,7 @@
         <frontend-maven-plugin.version>1.0</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v5.3.0</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>3.7.5</frontend-maven-plugin.npmVersion>
-        <docker-maven-plugin-version>0.15.7</docker-maven-plugin-version>
+        <fabric8-maven-plugin-version>3.1.14</fabric8-maven-plugin-version>
         <maven.version>3.3.3</maven.version>
         <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
         <spring-cloud-starter-parent.version>Brixton.SR1</spring-cloud-starter-parent.version>
@@ -72,6 +72,21 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-gson</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jaxb-impl</artifactId>
+                        <groupId>com.sun.xml.bind</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jaxb-core</artifactId>
+                        <groupId>com.sun.xml.bind</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jms</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
@@ -164,6 +179,19 @@
                             <configuration>
                                 <arguments>build</arguments>
                             </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>fabric8-maven-plugin</artifactId>
+                    <version>${fabric8-maven-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build</goal>
+                                <goal>deploy</goal>
+                            </goals>
                         </execution>
                     </executions>
                 </plugin>

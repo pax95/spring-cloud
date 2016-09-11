@@ -2,7 +2,6 @@ endpoints:
   restart:
     enabled: true
     
-eureka:
-  instance:
-    prefer-ip-address: true
-
+spring:
+  activemq:
+    broker-url: tcp://activemq:61616

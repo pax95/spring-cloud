@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.gson.GsonDataFormat;
-import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.spring.boot.FatJarRouter;
@@ -50,8 +49,7 @@ public class PlayRoute extends FatJarRouter {
             .enrich("direct:lastfmEnricher", new LastFmAggregationStrategy())
             .marshal(gf)
             .convertBodyTo(String.class)
-            .setHeader(KafkaConstants.KEY).simple("${header.channel}")
-            .to("kafka:" + kafkaHost+ "?topic=playlist&groupId=playgroup");
+            .to("activemq:topic:playlist");
         
         from("direct:lastfmEnricher")
             .onException(Exception.class)
@@ -65,7 +63,7 @@ public class PlayRoute extends FatJarRouter {
            .to("http4://ws.audioscrobbler.com/2.0/?throwExceptionOnFailure=false");
         
 
-        from("kafka:" + kafkaHost+"?topic=playlist&groupId=playgroup")
+        from("activemq:topic:playlist")
             .log("got track :${body}");
         //@formatter:on
     }
