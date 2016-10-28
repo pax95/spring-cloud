@@ -1,9 +1,6 @@
-server:
-  port: 9000
- 
 spring:
   cloud:
     config:
-      uri: http://config:8888
+      uri: http://config-server
   application:
     name: play-client

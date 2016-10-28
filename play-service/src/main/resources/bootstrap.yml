@@ -4,6 +4,6 @@ server:
 spring:
   cloud:
     config:
-      uri: http://config:8888
+      uri: http://config-server
   application:
     name: playliste-service

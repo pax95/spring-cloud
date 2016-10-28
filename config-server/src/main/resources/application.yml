@@ -1,6 +1,3 @@
 encrypt:
   key: MySecretLongmysecretkey121212
-eureka:
-  instance:
-    prefer-ip-address: true
 

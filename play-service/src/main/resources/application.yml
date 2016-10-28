@@ -4,4 +4,4 @@ endpoints:
     
 spring:
   activemq:
-    broker-url: tcp://activemq:61616
+    broker-url: tcp://message-broker:61616

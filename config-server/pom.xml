@@ -17,10 +17,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -38,16 +34,6 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>fabric8-maven-plugin</artifactId>
-                <configuration>
-                    <mode>kubernetes</mode>
-                    <generator>
-                        <config>
-                            <spring-boot>
-                                <webPort>8888</webPort>
-                            </spring-boot>
-                        </config>
-                    </generator>
-                </configuration>
             </plugin>
         </plugins>
     </build>
