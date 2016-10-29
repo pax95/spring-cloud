@@ -57,16 +57,6 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>fabric8-maven-plugin</artifactId>
-                <configuration>
-                    <mode>kubernetes</mode>
-                    <generator>
-                        <config>
-                            <spring-boot>
-                                <webPort>9000</webPort>
-                            </spring-boot>
-                        </config>
-                    </generator>
-                </configuration>
             </plugin>
         </plugins>
     </build>
