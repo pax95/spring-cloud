@@ -8,6 +8,11 @@
         <relativePath>../parent</relativePath>
     </parent>
     <artifactId>config-server</artifactId>
+    <properties>
+        <fabric8.metrics.scrape>true</fabric8.metrics.scrape>
+        <fabric8.metrics.port>9090</fabric8.metrics.port>
+        <fabric8.metrics.scheme>http</fabric8.metrics.scheme>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

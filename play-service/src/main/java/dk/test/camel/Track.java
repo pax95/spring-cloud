@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -50,16 +51,17 @@ public class Track {
 
     @SuppressWarnings("unchecked")
     public void setPayload(Map<String, Object> map) {
-        Map<String, Object> now = (Map<String, Object>)map.get("now");
-        this.title = (String)now.get("track_title");
+        Map<String, Object> now = (Map<String, Object>) map.get("now");
+        this.title = (String) now.get("track_title");
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        sf.setTimeZone(TimeZone.getTimeZone("Europe/Copenhagen"));
         try {
-            this.time = sf.parse((String)now.get("start_time"));
+            this.time = sf.parse((String) now.get("start_time"));
         } catch (ParseException e) {
         }
-        this.artist = (String)now.get("display_artist");
-        Map<String, Object> info = (Map<String, Object>)map.get("info");
-        this.channel = (String)info.get("channel");
+        this.artist = (String) now.get("display_artist");
+        Map<String, Object> info = (Map<String, Object>) map.get("info");
+        this.channel = (String) info.get("channel");
         this.album = "";
         this.albumImageUrl = "";
     }
