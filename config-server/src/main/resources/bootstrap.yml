@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: configserver
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/pax95/config-repo.git

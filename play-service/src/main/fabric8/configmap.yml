@@ -1,0 +1,9 @@
+metadata:
+  name: ${project.artifactId}
+data:
+  application.yml: |-
+    lastFmApiKey: a48c2a6d336fe251686ac33a6f51fa72
+    splunk:
+      metrics: false
+      eventCollectorEndpoint : https://localhost:8088/services/collector
+      token: EE26991E-1DA5-40B1-AA4E-635B899DCC69

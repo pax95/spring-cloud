@@ -21,9 +21,6 @@ public class PlayRoute extends FatJarRouter {
     @Value("${lastFmApiKey}")
     private String lastFmApiKey;
 
-    @Value("${kafkaHost}")
-    private String kafkaHost;
-
     @Override
     public void configure() throws Exception {
         GsonDataFormat gf = new GsonDataFormat(Track.class);

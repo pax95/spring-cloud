@@ -7,8 +7,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>parent</module>
-        <module>config-server</module>
         <module>play-service</module>
         <module>play-client</module>
     </modules>

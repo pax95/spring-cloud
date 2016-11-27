@@ -3,5 +3,7 @@ endpoints:
     enabled: true
     
 spring:
+  application:
+    name: play-service
   activemq:
     broker-url: tcp://message-broker:61616
