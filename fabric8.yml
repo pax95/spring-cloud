@@ -1,0 +1,11 @@
+---
+buildName: "spring-cloud"
+links:
+  Git: "https://github.com/pax95/spring-cloud.git"
+  Job: "http://192.168.64.49:32564/job/spring-cloud"
+  Staging: "http://172.30.81.208:80/kubernetes/pods?namespace=default-staging"
+  Testing: "http://172.30.81.208:80/kubernetes/pods?namespace=default-testing"
+environments:
+  Testing: "default-testing"
+  Staging: "default-staging"
+useLocalFlow: true
