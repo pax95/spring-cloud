@@ -54,6 +54,13 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>fabric8-maven-plugin</artifactId>
+                <configuration>
+                    <resources>
+                        <env>
+                        <JAVA_OPTIONS>-Dfile.encoding=UTF-8</JAVA_OPTIONS>
+                        </env>
+                        </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
