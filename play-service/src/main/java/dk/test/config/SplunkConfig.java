@@ -2,28 +2,28 @@ package dk.test.config;
 
 import java.util.concurrent.TimeUnit;
 
-import com.codahale.metrics.MetricRegistry;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+
+import com.codahale.metrics.MetricRegistry;
 
 import dk.test.metrics.SplunkMetricsReporter;
 
-@Configuration
+@ConfigurationProperties(prefix = "splunk")
 public class SplunkConfig {
 
-    @Value("${splunk.eventCollectorEndpoint}")
+    @Value("${eventCollectorEndpoint}")
     private String eventCollectorEndpoint;
 
-    @Value("${splunk.token}")
+    @Value("${token}")
     private String token;
 
     @Bean
     @ConditionalOnProperty(value = "splunk.metrics", matchIfMissing = false)
     public SplunkMetricsReporter splunkReporter(MetricRegistry metricRegistry) {
-        //@formatter:off
+        // @formatter:off
         SplunkMetricsReporter reporter = SplunkMetricsReporter
             .forRegistry(metricRegistry)
             .withEventCollectorEndpoint(this.eventCollectorEndpoint)
@@ -32,7 +32,23 @@ public class SplunkConfig {
             .convertDurationsTo(TimeUnit.MILLISECONDS)
             .build();
         reporter.start(1, TimeUnit.MINUTES);
-        //@formatter:on
+        // @formatter:on
         return reporter;
+    }
+
+    public String getEventCollectorEndpoint() {
+        return eventCollectorEndpoint;
+    }
+
+    public void setEventCollectorEndpoint(String eventCollectorEndpoint) {
+        this.eventCollectorEndpoint = eventCollectorEndpoint;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

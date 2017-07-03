@@ -1,11 +1,19 @@
 spring:
   activemq:
-    broker-url: tcp://broker-amq-tcp:61616
-    user: admin
-    password: admin
+    broker-url: tcp://localhost:61616
   jms:
     pub-sub-domain: true
 endpoints:
   enabled: false
   health:
     enabled: true
+
+---
+spring:
+  profiles: openshift
+
+  activemq:
+    broker-url: tcp://broker-amq-tcp:61616
+    user: admin
+    password: admin
+  
