@@ -1,14 +1,20 @@
-endpoints:
-  restart:
-    enabled: true
-  metrics:
-    enabled: true
-    sensitive: false
-    
 spring:
   application:
     name: play-service
   activemq:
-    broker-url: tcp://broker-amq-tcp:61616
+    broker-url: tcp://localhost:61616
     user: admin
     password: admin
+    pool:
+      enabled: true
+camel:
+  springboot:
+    log-exhausted-message-body: true
+        
+lastFmApiKey: a48c2a6d336fe251686ac33a6f51fa72
+
+splunk:
+  eventCollectorEndpoint: https://localhost:8088/services/collector
+  token: EE26991E-1DA5-40B1-AA4E-635B899DCC69
+server:
+  port: 9000

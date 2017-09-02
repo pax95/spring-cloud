@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: play-client
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: play-client

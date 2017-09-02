@@ -1,0 +1,26 @@
+<div class="container">
+  <div>
+    <table class="table table-striped">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Time</th>
+        <th>Channel</th>
+        <th>Artist</th>
+        <th>Track</th>
+        <th>Album</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let track of tracks">
+        <td>{{track.time | date: 'HH:mm:ss'}}</td>
+        <td>{{track.channel}}</td>
+        <td>{{track.artist}}</td>
+        <td>{{track.title}}</td>
+        <td>{{track.album}}</td>
+        <td><img alt="" src="{{track.albumImageUrl}}"> </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
